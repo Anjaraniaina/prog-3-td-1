@@ -3,7 +3,9 @@ package app.prog.service;
 import app.prog.model.BookEntity;
 import app.prog.repository.BookRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,7 +28,7 @@ public class BookService {
     }
 
     //TODO-3: should I use Integer here or int ? Why ?
-    public BookEntity deleteBook(int BookEntityId) {
+    public BookEntity deleteBook(Integer BookEntityId) {
         /*
         TIPS: From the API, the Class Optional<T> is :
         A container object which may or may not contain a non-null value.
@@ -43,12 +45,13 @@ public class BookService {
         /*
         TODO-5 : The exception appears as an internal server error, status 500.
         We all know that the appropriate error status is the 404 Not Found.
-        Any solution to do this ?
+        Any solution to dos this ?
         These links may help you :
         Link 1 : https://www.baeldung.com/spring-response-entity
         Link 2 : https://www.baeldung.com/exception-handling-for-rest-with-spring
          */
-            throw new RuntimeException("BookEntity." + BookEntityId + " not found");
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Resource Not Found", null);
         }
     }
 }

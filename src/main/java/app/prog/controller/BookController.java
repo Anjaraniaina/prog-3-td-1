@@ -9,6 +9,7 @@ import app.prog.service.BookService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -19,9 +20,12 @@ public class BookController {
 
     @GetMapping("/books")
     public List<BookResponse> getBooks() {
-        return service.getBooks().stream()
-                .map(mapper::toRest)
-                .toList();
+        List<BookResponse> list = new ArrayList<>();
+        for (BookEntity bookEntity : service.getBooks()) {
+            BookResponse bookResponse = mapper.toRest(bookEntity);
+            list.add(bookResponse);
+        }
+        return list;
     }
 
     @PostMapping("/books")

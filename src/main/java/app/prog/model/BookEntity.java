@@ -17,6 +17,7 @@ import java.time.LocalDate;
 public class BookEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", unique = true, nullable = false)
     private int id;
     private String title;
     private String author;
