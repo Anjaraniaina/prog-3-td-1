@@ -1,13 +1,14 @@
 package app.prog.controller.mapper;
 
-import app.prog.controller.request.CreateBook;
 import app.prog.controller.response.BookResponse;
-import app.prog.model.Book;
+import app.prog.controller.response.CreateBookResponse;
+import app.prog.controller.response.UpdateBookResponse;
+import app.prog.model.BookEntity;
 import org.springframework.stereotype.Component;
 
 @Component
 public class BookRestMapper {
-    public BookResponse toRest(Book domain) {
+    public BookResponse toRest(BookEntity domain) {
         return BookResponse.builder()
                 .id(domain.getId())
                 .title(domain.getTitle())
@@ -16,20 +17,20 @@ public class BookRestMapper {
                 .build();
     }
 
-    public Book toDomain(CreateBook rest) {
-        return Book.builder()
-                .title(rest.getTitle())
+    public BookEntity toDomain(CreateBookResponse rest) {
+        return BookEntity.builder()
                 .author(rest.getAuthor())
-                .pageNumber(0)
+                .title(rest.getTitle())
+                .pageNumber(0) //Constraint not null in database, default value is 0
                 .build();
     }
 
-    public Book toDomain(BookResponse rest) {
-        return Book.builder()
+    public BookEntity toDomain(UpdateBookResponse rest) {
+        return BookEntity.builder()
                 .id(rest.getId())
-                .title(rest.getTitle())
                 .author(rest.getAuthor())
-                .pageNumber(0)
+                .title(rest.getTitle())
+                .pageNumber(0) //Constraint not null in database, default value is 0
                 .build();
     }
 }

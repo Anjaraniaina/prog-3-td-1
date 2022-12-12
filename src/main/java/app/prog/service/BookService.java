@@ -1,6 +1,6 @@
 package app.prog.service;
 
-import app.prog.model.Book;
+import app.prog.model.BookEntity;
 import app.prog.repository.BookRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,41 +13,29 @@ import java.util.Optional;
 public class BookService {
     private final BookRepository repository;
 
-    public List<Book> getBooks() {
+    public List<BookEntity> getBooks() {
         return repository.findAll();
     }
 
-    /*
-    TODO-1: Only title and author should be provided during the creation of a new book.
-    The ID is created by default by the database so it should not be provided at all.
-    Therefore, the pageNumber and the releaseDate exists also in the Book model.
-    A solution to create a book without the ID, the pageNumber and the releaseDate ?
-     */
-    public List<Book> createBooks(List<Book> toCreate) {
+    public List<BookEntity> createBooks(List<BookEntity> toCreate) {
         return repository.saveAll(toCreate);
     }
 
-    /*
-    TODO-2-i: Why the createBooks and the updateBooks use the same repository method saveAll ?
-    TODO-2-ii : Only ID, title and author should be provided during the update.
-    Therefore, the pageNumber and the release date exists also in the Book model.
-    A solution to update a book without the pageNumber and the releaseDate ?
-     */
-    public List<Book> updateBooks(List<Book> toUpdate) {
+    public List<BookEntity> updateBooks(List<BookEntity> toUpdate) {
         return repository.saveAll(toUpdate);
     }
 
     //TODO-3: should I use Integer here or int ? Why ?
-    public Book deleteBook(Integer bookId) {
+    public BookEntity deleteBook(int BookEntityId) {
         /*
         TIPS: From the API, the Class Optional<T> is :
         A container object which may or may not contain a non-null value.
         If a value is present, isPresent() returns true.
         If no value is present, the object is considered empty and isPresent() returns false.
 
-        T is the type of the value, for example : here the class type is Book
+        T is the type of the value, for example : here the class type is BookEntity
          */
-        Optional<Book> optional = repository.findById(String.valueOf(bookId));
+        Optional<BookEntity> optional = repository.findById(String.valueOf(BookEntityId));
         if (optional.isPresent()) {
             repository.delete(optional.get());
             return optional.get();
@@ -60,7 +48,7 @@ public class BookService {
         Link 1 : https://www.baeldung.com/spring-response-entity
         Link 2 : https://www.baeldung.com/exception-handling-for-rest-with-spring
          */
-            throw new RuntimeException("Book." + bookId + " not found");
+            throw new RuntimeException("BookEntity." + BookEntityId + " not found");
         }
     }
 }
