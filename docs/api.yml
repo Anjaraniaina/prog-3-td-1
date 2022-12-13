@@ -191,6 +191,17 @@ components:
           type: string
         author:
           type: string
+        category:
+          type: array
+          items:
+            $ref: '#/components/schemas/Category'
+    Category:
+        type: object
+        properties:
+          id:
+            type: integer
+          name:
+            string: string
     Author:
       type: object
       properties:
@@ -211,3 +222,7 @@ components:
           type: string
         particularity:
           type: string
+        books:
+          type: array
+          items:
+            $ref: '#/components/schemas/Book'

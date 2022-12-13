@@ -7,10 +7,14 @@ import app.prog.controller.response.UpdateBookResponse;
 import app.prog.model.BookEntity;
 import app.prog.service.BookService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
@@ -49,7 +53,15 @@ public class BookController {
     }
 
     @DeleteMapping("/books/{bookId}")
-    public BookResponse deleteBook(@PathVariable Integer bookId) {
-        return mapper.toRest(service.deleteBook(bookId));
+    public ResponseEntity<?> deleteBook(@PathVariable int bookId) {
+        BookEntity book = service.findById(bookId);
+        if (book == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .header("Content-Type", "text/plain")
+                    .body("Book not found");
+        }
+        service.deleteBook(bookId);
+        return ResponseEntity.ok().build();
     }
 }
+

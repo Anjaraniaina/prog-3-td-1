@@ -4,5 +4,10 @@ import app.prog.model.Author;
 import app.prog.model.BookEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface AuthorRepository extends JpaRepository<Author, String> {
+import java.util.List;
+
+public interface AuthorRepository extends JpaRepository<Author, Integer> {
+    Author findByName(String name);
+
+    List<Author> findByBirthDateOrderByDesc();
 }

@@ -1,7 +1,7 @@
 package app.prog.service;
 
-import app.prog.model.Author;
-import app.prog.repository.AuthorRepository;
+import app.prog.model.Category;
+import app.prog.repository.CategoryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -12,32 +12,23 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class AuthorService {
-    private final AuthorRepository repository;
+public class CategoryService {
+    private final CategoryRepository repository;
 
-    public List<Author> getAuthors() {
+    public List<Category> getCategories() {
         return repository.findAll();
     }
 
-    public Author findByName(String name) {
-        return repository.findByName(name);
-    }
-
-    public List<Author> findByBirthDateOrderByDesc() {
-        return repository.findByBirthDateOrderByDesc();
-    }
-
-
-    public List<Author> createAuthors(List<Author> toCreate) {
+    public List<Category> createCategories(List<Category> toCreate) {
         return repository.saveAll(toCreate);
     }
 
-    public List<Author> updateAuthors(List<Author> toUpdate) {
+    public List<Category> updateCategories(List<Category> toUpdate) {
         return repository.saveAll(toUpdate);
     }
 
-    public Author deleteAuthor(Integer authorId) {
-        Optional<Author> optional = repository.findById(authorId);
+    public Category deleteCategory(Integer authorId) {
+        Optional<Category> optional = repository.findById(authorId);
         if (optional.isPresent()) {
             repository.delete(optional.get());
             return optional.get();
