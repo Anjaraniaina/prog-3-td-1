@@ -20,10 +20,10 @@ public class AuthorService {
     }
 
     public Author findByName(String name) {
-        return repository.findByName(name);
+        return repository.findByName(name).get(0);
     }
 
-    public List<Author> findByBirthDateOrderByDesc() {
+    public List<Author> findByBirthDateOrder() {
         return repository.findByBirthDateOrderByDesc();
     }
 

@@ -34,6 +34,16 @@ public class AuthorController {
         return list;
     }
 
+    @GetMapping("/authors")
+    public List<AuthorResponse> getAuthorsByBirthDate() {
+        List<AuthorResponse> list = new ArrayList<>();
+        for (Author author : service.findByBirthDateOrder()) {
+            AuthorResponse authorResponse = mapper.toRest(author);
+            list.add(authorResponse);
+        }
+        return list;
+    }
+
     @PostMapping("/authors")
     public List<AuthorResponse> createAuthors(@RequestBody List<CreateAuthorResponse> toCreate) {
         List<Author> domain = toCreate.stream()
